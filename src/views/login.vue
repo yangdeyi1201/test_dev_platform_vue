@@ -16,7 +16,7 @@
 
 <script>
 import {ElMessage} from 'element-plus'
-import {mapState, mapGetters, mapMutations, mapActions} from 'vuex'
+import {mapMutations} from 'vuex'
 
 export default {
   data() {
