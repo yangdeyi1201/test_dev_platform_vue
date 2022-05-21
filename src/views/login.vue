@@ -15,8 +15,7 @@
 </template>
 
 <script>
-import {ElMessage} from 'element-plus'
-import {mapMutations} from 'vuex'
+import {mapMutations, mapActions} from 'vuex'
 
 export default {
   data() {
@@ -29,6 +28,7 @@ export default {
   },
   methods: {
     ...mapMutations(['updateState']),
+    ...mapActions(['messageSuccess', 'messageError']),
     async loginRequest() {
       const response = await this.$api.login(this.loginInfo)
       // 登录成功处理
@@ -42,22 +42,12 @@ export default {
         // 路由访问项目列表首页
         await this.$router.push({name: 'all'})
         // 登录成功的消息提示
-        ElMessage({
-          type: 'success',
-          message: '登录成功',
-          duration: 1500,
-          center: true
-        })
+        this.messageSuccess('登录成功')
       }
       // 登录失败处理
       else {
         // 登录失败的消息提示
-        ElMessage({
-          type: 'error',
-          message: response.data,
-          duration: 1500,
-          center: true
-        })
+        this.messageError(response.data)
       }
     }
   }
