@@ -53,5 +53,8 @@ export default {
     },
     updateProject(project_id, params) {
         return http.patch(`/projects/${project_id}`, params)
+    },
+    addProject(params) {
+        return http.post('/projects/', params)
     }
 }
