@@ -27,11 +27,7 @@
       </el-table>
     </div>
     <!--编辑项目对话框-->
-<<<<<<< HEAD
-    <el-dialog v-model="dialogFormVisible" :title="'编辑 id 为 '+editProjectId+' 的项目'">
-=======
     <el-dialog v-model="dialogFormVisible" :title="'编辑 id 为 '+editProjectId+' 的项目'" width="30%">
->>>>>>> tmp
       <el-form :model="editForm">
         <el-form-item label="项目名称" :label-width="140">
           <el-input v-model="editForm.name" autocomplete="off"></el-input>
