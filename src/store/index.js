@@ -5,6 +5,7 @@ export default createStore({
   state: {
     // 存放全局数据
     'isAuthorization': false,
+    'projectInfo': null,
     'messageDuration': 2000
   },
   getters: {
@@ -14,6 +15,9 @@ export default createStore({
     // 定义修改全局 state 数据的方法, 只能是同步函数
     updateState(state, items) {
       state[items.name] = items.value
+    },
+    saveProjectInfo(state, value) {
+      state.projectInfo = value
     }
   },
   actions: {

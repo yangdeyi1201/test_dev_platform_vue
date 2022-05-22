@@ -19,7 +19,7 @@
         </el-table-column>
         <el-table-column label="操作" width="340">
           <template v-slot:default="scope">
-            <el-button type="success" icon="el-icon-view" plain>进入项目</el-button>
+            <el-button @click="clickEnter(scope.row)" type="success" icon="el-icon-view" plain>进入项目</el-button>
             <el-button @click="handleEdit(scope.row)" type="success" icon="el-icon-edit-outline" plain>编辑</el-button>
             <el-button @click="handDelete(scope.row.id)" type="danger" icon="el-icon-delete" plain>删除</el-button>
           </template>
@@ -65,7 +65,7 @@
 
 <script>
 import {ElMessageBox} from 'element-plus'
-import {mapActions} from 'vuex'
+import {mapActions, mapMutations} from 'vuex'
 
 export default {
   data() {
@@ -86,13 +86,23 @@ export default {
   },
   methods: {
     ...mapActions(['messageSuccess', 'messageError', 'messageInfo']),
+    ...mapMutations(['saveProjectInfo']),
 
+    // 获取项目列表
     async getAllProjects() {
       const response = await this.$api.getProjects()
       console.log('项目列表接口返回结果', response)
       if (response.status === 200) {
         this.projects_list = response.data
       }
+      else {
+        this.messageError(response.data)
+      }
+    },
+    // 点击进入项目按钮时执行
+    clickEnter(project_info) {
+      this.$router.push({name: 'home'})
+      this.saveProjectInfo(project_info)
     },
     // 新增项目相关
     handAdd() {
