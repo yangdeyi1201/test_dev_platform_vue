@@ -1,10 +1,10 @@
 import { createStore } from 'vuex'
-import {ElMessage, ElMessageBox} from 'element-plus'
+import {ElMessage} from 'element-plus'
 
 export default createStore({
   state: {
     'isAuthorization': false,
-    'messageDuration': 1500
+    'messageDuration': 2000
   },
   getters: {
   },
@@ -33,6 +33,14 @@ export default createStore({
     messageInfo(context, message) {
       ElMessage({
         type: 'info',
+        message: message,
+        duration: this.state.messageDuration,
+        center: true
+      })
+    },
+    messageWarning(context, message) {
+      ElMessage({
+        type: 'warning',
         message: message,
         duration: this.state.messageDuration,
         center: true

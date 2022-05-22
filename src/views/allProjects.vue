@@ -27,7 +27,7 @@
       </el-table>
     </div>
     <!--编辑项目对话框-->
-    <el-dialog v-model="dialogFormVisible" title="编辑">
+    <el-dialog v-model="dialogFormVisible" :title="'编辑 id 为 '+editProjectId+' 的项目'">
       <el-form :model="editForm">
         <el-form-item label="项目名称" :label-width="140">
           <el-input v-model="editForm.name" autocomplete="off"></el-input>
@@ -98,9 +98,9 @@ export default {
     },
     async addProject() {
       const response = await this.$api.addProject(this.addForm)
-      this.dialogFormAddVisible = false
       if (response.status === 201) {
         await this.getAllProjects()
+        this.dialogFormAddVisible = false
         this.messageSuccess('新增成功')
       }
       else {
@@ -118,9 +118,9 @@ export default {
     },
     async updateProject(project_id) {
       const response = await this.$api.updateProject(project_id, this.editForm)
-      this.dialogFormVisible = false
       if (response.status === 200) {
         await this.getAllProjects()
+        this.dialogFormVisible = false
         this.messageSuccess('修改成功')
       }
       else {
@@ -128,19 +128,9 @@ export default {
       }
     },
     // 删除项目相关
-    async delProject(project_id) {
-      const response = await this.$api.delProject(project_id)
-      if (response.status === 204) {
-        await this.getAllProjects()
-        this.messageSuccess('删除成功')
-      }
-      else {
-        this.messageError(response.data)
-      }
-    },
     handDelete(project_id) {
         ElMessageBox.confirm(
-            '确认删除?',
+            `确认删除 id 为 ${project_id} 的项目?`,
             '提示',
             {
               confirmButtonText: '确认',
@@ -151,9 +141,19 @@ export default {
             .then(() => {
               this.delProject(project_id)
             })
-            .catch(() => {
-              this.messageInfo('已取消删除')
-            })
+            // .catch(() => {
+            //   this.messageInfo('已取消删除')
+            // })
+    },
+    async delProject(project_id) {
+      const response = await this.$api.delProject(project_id)
+      if (response.status === 204) {
+        await this.getAllProjects()
+        this.messageSuccess('删除成功')
+      }
+      else {
+        this.messageError(response.data)
+      }
     },
   },
   created() {
