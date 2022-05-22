@@ -49,10 +49,10 @@ export default {
         return http.get('/projects/')
     },
     delProject(project_id) {
-        return http.delete(`/projects/${project_id}`)
+        return http.delete(`/projects/${project_id}/`)
     },
     updateProject(project_id, params) {
-        return http.patch(`/projects/${project_id}`, params)
+        return http.patch(`/projects/${project_id}/`, params)
     },
     addProject(params) {
         return http.post('/projects/', params)

@@ -27,7 +27,7 @@
       </el-table>
     </div>
     <!--编辑项目对话框-->
-    <el-dialog v-model="dialogFormVisible" title="编辑">
+    <el-dialog v-model="dialogFormVisible" :title="'编辑 id 为 '+editProjectId+' 的项目'" width="30%">
       <el-form :model="editForm">
         <el-form-item label="项目名称" :label-width="140">
           <el-input v-model="editForm.name" autocomplete="off"></el-input>
@@ -44,7 +44,7 @@
       </template>
     </el-dialog>
     <!--新增项目对话框-->
-    <el-dialog v-model="dialogFormAddVisible" title="新增">
+    <el-dialog v-model="dialogFormAddVisible" title="新增" width="30%">
       <el-form :model="addForm">
         <el-form-item label="项目名称" :label-width="140">
           <el-input v-model="addForm.name" autocomplete="off"></el-input>
@@ -73,8 +73,14 @@ export default {
       'projects_list': [],
       'dialogFormVisible': false,
       'dialogFormAddVisible': false,
-      'editForm': {},
-      'addForm': {},
+      'editForm': {
+        'name': '',
+        'desc': ''
+      },
+      'addForm': {
+        'name': '',
+        'desc': ''
+      },
       'editProjectId': ''
     }
   },
@@ -90,6 +96,7 @@ export default {
     },
     // 新增项目相关
     handAdd() {
+      // 点新增项目按钮时执行
       this.dialogFormAddVisible = true
       this.addForm = {
         'name': '',
@@ -97,10 +104,11 @@ export default {
       }
     },
     async addProject() {
+      // 点击新增对话框内确认按钮时执行
       const response = await this.$api.addProject(this.addForm)
-      this.dialogFormAddVisible = false
       if (response.status === 201) {
         await this.getAllProjects()
+        this.dialogFormAddVisible = false
         this.messageSuccess('新增成功')
       }
       else {
@@ -109,6 +117,7 @@ export default {
     },
     // 修改项目相关
     handleEdit(row) {
+      // 点编辑按钮时执行
       this.dialogFormVisible = true
       this.editForm = {
         'name': row.name,
@@ -117,10 +126,11 @@ export default {
       this.editProjectId = row.id
     },
     async updateProject(project_id) {
+      // 点编辑对话框内确认按钮时执行
       const response = await this.$api.updateProject(project_id, this.editForm)
-      this.dialogFormVisible = false
       if (response.status === 200) {
         await this.getAllProjects()
+        this.dialogFormVisible = false
         this.messageSuccess('修改成功')
       }
       else {
@@ -128,19 +138,10 @@ export default {
       }
     },
     // 删除项目相关
-    async delProject(project_id) {
-      const response = await this.$api.delProject(project_id)
-      if (response.status === 204) {
-        await this.getAllProjects()
-        this.messageSuccess('删除成功')
-      }
-      else {
-        this.messageError(response.data)
-      }
-    },
     handDelete(project_id) {
+        // 点删除按钮时执行
         ElMessageBox.confirm(
-            '确认删除?',
+            `确认删除 id 为 ${project_id} 的项目?`,
             '提示',
             {
               confirmButtonText: '确认',
@@ -151,9 +152,20 @@ export default {
             .then(() => {
               this.delProject(project_id)
             })
-            .catch(() => {
-              this.messageInfo('已取消删除')
-            })
+            // .catch(() => {
+            //   this.messageInfo('已取消删除')
+            // })
+    },
+    async delProject(project_id) {
+      // 点击删除弹框内确认按钮时执行
+      const response = await this.$api.delProject(project_id)
+      if (response.status === 204) {
+        await this.getAllProjects()
+        this.messageSuccess('删除成功')
+      }
+      else {
+        this.messageError(response.data)
+      }
     },
   },
   created() {
