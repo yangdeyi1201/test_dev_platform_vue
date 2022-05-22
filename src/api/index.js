@@ -46,15 +46,23 @@ export default {
     },
     // 项目列表相关接口
     getProjects() {
+        // 获取项目列表
         return http.get('/projects/')
     },
+    getProject(project_id) {
+        // 获取项目
+        return http.get(`/projects/${project_id}/`)
+    },
     delProject(project_id) {
-        return http.delete(`/projects/${project_id}`)
+        // 删除项目
+        return http.delete(`/projects/${project_id}/`)
     },
     updateProject(project_id, params) {
-        return http.patch(`/projects/${project_id}`, params)
+        // 修改项目
+        return http.patch(`/projects/${project_id}/`, params)
     },
     addProject(params) {
+        // 新增项目
         return http.post('/projects/', params)
     }
 }
