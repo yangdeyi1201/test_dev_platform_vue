@@ -42,7 +42,7 @@ router.beforeEach((to, from, next) => {
     return next({name: 'login'})
   }
   else if (names.includes(to.name) && token) {
-    // 访问非登录路由页+有token:可直接访问到非登录路由页(token校验问题后续通过vuex解决)
+    // 访问非登录路由页+有token:可直接访问到非登录路由页
     return next()
   }
 })

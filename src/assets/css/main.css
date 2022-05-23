@@ -1,3 +1,6 @@
+body {
+    margin: 0;
+}
 .el-table_1_column_2 .cell,
 .el-table_1_column_3 .cell,
 .el-table_1_column_4 .cell,
