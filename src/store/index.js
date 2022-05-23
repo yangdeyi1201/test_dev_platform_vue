@@ -5,6 +5,7 @@ export default createStore({
   state: {
     // 存放全局数据
     'isAuthorization': false,
+    'username': null,
     'projectInfo': null,
     'messageDuration': 2000
   },

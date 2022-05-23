@@ -39,6 +39,10 @@ export default {
           'name': 'isAuthorization',
           'value': token
         })
+        this.updateState({
+          'name': 'username',
+          'value': this.loginInfo.username,
+        })
         // 路由访问项目列表首页
         await this.$router.push({name: 'all'})
         // 登录成功的消息提示
