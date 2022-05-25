@@ -53,12 +53,24 @@ export default {
     handleCommand(cmd) {
       if (cmd === 'selectProject') {
         this.$router.push({name: 'all'})
+        this.updateState({
+          'name': 'projectInfo',
+          'value': null
+        })
       }
       else if (cmd === 'loginOut') {
         this.$router.push({name: 'login'})
         this.updateState({
           'name': 'isAuthorization',
           'value': false
+        })
+        this.updateState({
+          'name': 'projectInfo',
+          'value': null
+        })
+        this.updateState({
+          'name': 'username',
+          'value': null
         })
       }
     }
