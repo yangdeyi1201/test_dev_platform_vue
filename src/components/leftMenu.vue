@@ -18,25 +18,14 @@
     </div>
   </div>
   <div class="menu_box">
-    <el-menu  active-text-color="#ffd04b"
+    <el-menu  :router="true"
+              active-text-color="#ffd04b"
               default-active="1"
               text-color="white"
               style="background: none">
-      <el-menu-item @click="" index="1">
-        <span class="el-icon-s-operation"></span>
-        <span>项目管理</span>
-      </el-menu-item>
-      <el-menu-item @click="" index="2">
-        <span class="el-icon-more"></span>
-        <span>接口管理</span>
-      </el-menu-item>
-      <el-menu-item  @click="" index="3">
-        <span class="el-icon-document"></span>
-        <span>用例管理</span>
-      </el-menu-item>
-      <el-menu-item  @click="" index="4">
-        <span class="el-icon-info"></span>
-        <span>环境管理</span>
+      <el-menu-item :index="menu.path" v-for="menu in menus">
+        <span :class="menu.icon"></span>
+        <span>{{menu.name}}</span>
       </el-menu-item>
     </el-menu>
   </div>
@@ -45,8 +34,14 @@
 <script>
 import {mapMutations} from 'vuex'
 import store from '../store/index.js'
+import menus from '../components/menu.js'
 
 export default {
+  data() {
+    return {
+      'menus': menus
+    }
+  },
   computed: {
     username() {
       return store.state.username
@@ -106,5 +101,9 @@ export default {
 
 .el-menu-item {
   font-size: 16px;
+}
+
+.el-menu {
+  border-right: 0;
 }
 </style>

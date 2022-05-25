@@ -5,7 +5,9 @@
     </div>
     <div class="right_box">
       <div class="title"></div>
-      <div class="main_box"></div>
+      <div class="main_box">
+        <router-view></router-view>
+      </div>
     </div>
   </div>
 </template>
