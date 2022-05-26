@@ -10,12 +10,19 @@ export default createStore({
     'messageDuration': 2000
   },
   getters: {
-  //  存放全局计算属性
+    //  存放全局计算属性
   },
   mutations: {
     // 定义修改全局 state 数据的方法, 只能是同步函数
     updateState(state, items) {
+      // 修改单个全局 state 数据: 传入单个对象
       state[items.name] = items.value
+    },
+    updateStates(state, items) {
+      // 一次性修改多个全局 state 数据: 传入一个数组（包含多个对象）
+      for (const item of items) {
+        state[item.name] = item.value
+      }
     },
     saveProjectInfo(state, value) {
       state.projectInfo = value

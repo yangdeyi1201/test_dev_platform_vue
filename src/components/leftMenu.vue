@@ -48,18 +48,24 @@ export default {
     }
   },
   methods: {
-    ...mapMutations(['updateState']),
+    ...mapMutations(['updateStates', 'updateState']),
 
     handleCommand(cmd) {
       if (cmd === 'selectProject') {
         this.$router.push({name: 'all'})
+        this.updateState({
+          'name': 'projectInfo',
+          'value': null
+        })
       }
       else if (cmd === 'loginOut') {
         this.$router.push({name: 'login'})
-        this.updateState({
-          'name': 'isAuthorization',
-          'value': false
-        })
+        const states = [
+          {'name': 'isAuthorization', 'value': false},
+          {'name': 'projectInfo', 'value': null},
+          {'name': 'username', 'value': null}
+        ]
+        this.updateStates(states)
       }
     }
   }

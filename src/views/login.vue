@@ -27,7 +27,7 @@ export default {
     }
   },
   methods: {
-    ...mapMutations(['updateState']),
+    ...mapMutations(['updateStates']),
     ...mapActions(['messageSuccess', 'messageError']),
     async loginRequest() {
       const response = await this.$api.login(this.loginInfo)
@@ -35,14 +35,11 @@ export default {
       if (response.status === 200) {
         // 将登录响应token保存起来(安全性考虑保存至会话存储中)
         const token = response.data.token
-        this.updateState({
-          'name': 'isAuthorization',
-          'value': token
-        })
-        this.updateState({
-          'name': 'username',
-          'value': this.loginInfo.username,
-        })
+        const states = [
+          {'name': 'isAuthorization', 'value': token},
+          {'name': 'username', 'value': this.loginInfo.username}
+        ]
+        this.updateStates(states)
         // 路由访问项目列表首页
         await this.$router.push({name: 'all'})
         // 登录成功的消息提示
@@ -59,15 +56,15 @@ export default {
 </script>
 
 <style scoped>
-  .login_box {
-    position: absolute;
-    left: 50%;
-    top: 50%;
-    transform: translate(-50%, -50%);
-    text-align: center;
-  }
-  .el-button {
-    /*!important表示为css样式提升权重, 解决css样式不生效的问题*/
-    color: blue !important;
-  }
+.login_box {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  text-align: center;
+}
+.el-button {
+  /*!important表示为css样式提升权重, 解决css样式不生效的问题*/
+  color: blue !important;
+}
 </style>
