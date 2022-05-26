@@ -56,15 +56,15 @@ export default {
 </script>
 
 <style scoped>
-  .login_box {
-    position: absolute;
-    left: 50%;
-    top: 50%;
-    transform: translate(-50%, -50%);
-    text-align: center;
-  }
-  .el-button {
-    /*!important表示为css样式提升权重, 解决css样式不生效的问题*/
-    color: blue !important;
-  }
+.login_box {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  text-align: center;
+}
+.el-button {
+  /*!important表示为css样式提升权重, 解决css样式不生效的问题*/
+  color: blue !important;
+}
 </style>

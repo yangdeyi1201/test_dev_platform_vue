@@ -10,7 +10,7 @@ export default createStore({
     'messageDuration': 2000
   },
   getters: {
-  //  存放全局计算属性
+    //  存放全局计算属性
   },
   mutations: {
     // 定义修改全局 state 数据的方法, 只能是同步函数

@@ -4,7 +4,9 @@
       <leftMenu></leftMenu>
     </div>
     <div class="right_box">
-      <div class="title"></div>
+      <div class="title">
+        <Tags></Tags>
+      </div>
       <div class="main_box">
         <router-view></router-view>
       </div>
@@ -13,11 +15,13 @@
 </template>
 
 <script>
-import leftMenu from '../components/leftMenu';
+import leftMenu from '../components/leftMenu'
+import Tags from '../components/Tags.vue'
 
 export default {
   components: {
-    'leftMenu': leftMenu
+    'leftMenu': leftMenu,
+    'Tags': Tags
   }
 }
 
