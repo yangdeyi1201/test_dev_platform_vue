@@ -86,7 +86,7 @@ export default {
   },
   methods: {
     ...mapActions(['messageSuccess', 'messageError', 'messageInfo']),
-    ...mapMutations(['saveProjectInfo']),
+    ...mapMutations(['updateState']),
 
     // 获取项目列表
     async getAllProjects() {
@@ -102,7 +102,10 @@ export default {
     // 点击进入项目按钮时执行
     clickEnter(project_info) {
       this.$router.push({name: 'home'})
-      this.saveProjectInfo(project_info)
+      this.updateState({
+        'name': 'projectInfo',
+        'value': project_info
+      })
     },
     // 新增项目相关
     handAdd() {
