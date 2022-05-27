@@ -14,9 +14,9 @@ export default createStore({
   },
   mutations: {
     // 定义修改全局 state 数据的方法, 只能是同步函数
-    'updateState': function(state, items) {
+    'updateState': function(state, item) {
       // 修改单个全局 state 数据: 传入单个对象
-      state[items.name] = items.value
+      state[item.name] = item.value
     },
     'updateStates': function(state, items) {
       // 一次性修改多个全局 state 数据: 传入一个数组（包含多个对象）

@@ -7,9 +7,9 @@
       <div class="title">
         <Tags></Tags>
       </div>
-      <div class="main_box">
+      <el-card class="main_box" :body-style="{ padding: '0px' }">
         <router-view></router-view>
-      </div>
+      </el-card>
     </div>
   </div>
 </template>
@@ -50,6 +50,7 @@ export default {
 
 .main_box {
   height: calc(100vh - 61px);
+  border: 0;
 }
 
 </style>
