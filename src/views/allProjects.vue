@@ -3,11 +3,13 @@
     <!--标题部门-->
     <div class="title">
       <span>项目列表</span>
+      <el-button @click="batchDelete" type="danger" icon="" style="float: right">批量删除</el-button>
       <el-button @click="handAdd" type="success" icon="el-icon-plus" style="float: right">添加项目</el-button>
     </div>
     <!--表格部分-->
     <div class="table">
-      <el-table :data="projects_list">
+      <el-table :data="projects_list" @selection-change="handleSelectionChange" ref="multipleTable">
+        <el-table-column type="selection"></el-table-column>
         <el-table-column label="项目 ID" prop="id" min-width="170"></el-table-column>
         <el-table-column label="项目名称" prop="name" min-width="170"></el-table-column>
         <el-table-column label="负责人" prop="leader" min-width="170"></el-table-column>
@@ -81,7 +83,8 @@ export default {
         'name': '',
         'desc': ''
       },
-      'editProjectId': ''
+      'editProjectId': '',
+      'selections': []
     }
   },
   methods: {
@@ -180,6 +183,42 @@ export default {
         this.messageError(response.data)
       }
     },
+    handleSelectionChange(selections) {
+      this.selections = selections
+    },
+    async delProjects(ids) {
+      // 批量删除项目
+      const statuses = []
+      for (const project_id of ids) {
+        const response = await this.$api.delProject(project_id)
+        statuses.push(response.status)
+      }
+      if (statuses.filter((status) => {return status === 204}).length === statuses.length) {
+        await this.getAllProjects()
+        this.messageSuccess('删除成功')
+      }
+    },
+    batchDelete() {
+      if (this.selections.length > 0) {
+        ElMessageBox.confirm(
+            '',
+            `删除选中的 ${this.selections.length} 条数据`,
+            {
+              confirmButtonText: '确认',
+              cancelButtonText: '取消',
+              type: 'warning',
+            }
+        )
+            .then(() => {
+              const ids = this.selections.map(project => {return project.id})
+              this.delProjects(ids)
+            })
+            .catch(() => {
+              this.$refs.multipleTable.clearSelection()
+              this.messageInfo('已取消批量删除')
+            })
+      }
+    }
   },
   created() {
     this.getAllProjects()
@@ -196,5 +235,8 @@ export default {
     border-bottom: solid 3px limegreen;
     font-size: 23px;
     color: limegreen;
+  }
+  .title .el-button:nth-last-child(1) {
+    margin-right: 5px;
   }
 </style>
