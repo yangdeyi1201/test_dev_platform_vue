@@ -45,11 +45,6 @@ export default {
         // 登录成功的消息提示
         this.messageSuccess('登录成功')
       }
-      // 登录失败处理
-      else {
-        // 登录失败的消息提示
-        this.messageError(response.data)
-      }
     }
   }
 }

@@ -40,6 +40,7 @@ const routes = [
   {
     path: '/home',
     name: 'home',
+    redirect: '/home/project',
     component: () => {return import('../views/home.vue')},
     children: [
       {
@@ -101,7 +102,7 @@ router.beforeEach((to, from, next) => {
           type: 'warning',
           callback: () => {next({name: 'login'})}
         }
-    ).then(() => {})
+    ).catch((e) => {console.log(e)})
   }
   else if (names.includes(to.name) && token) {
     // 访问非登录路由页+有token:可直接访问到非登录路由页

@@ -98,9 +98,6 @@ export default {
       if (response.status === 200) {
         this.projects_list = response.data
       }
-      else {
-        this.messageError(response.data)
-      }
     },
     // 点击进入项目按钮时执行
     clickEnter(project_info) {
@@ -127,9 +124,6 @@ export default {
         this.dialogFormAddVisible = false
         this.messageSuccess('新增成功')
       }
-      else {
-        this.messageError(response.data)
-      }
     },
     // 修改项目相关
     handleEdit(row) {
@@ -148,9 +142,6 @@ export default {
         await this.getAllProjects()
         this.dialogFormVisible = false
         this.messageSuccess('修改成功')
-      }
-      else {
-        this.messageError(response.data)
       }
     },
     // 删除项目相关
@@ -178,9 +169,6 @@ export default {
       if (response.status === 204) {
         await this.getAllProjects()
         this.messageSuccess('删除成功')
-      }
-      else {
-        this.messageError(response.data)
       }
     },
     handleSelectionChange(selections) {
