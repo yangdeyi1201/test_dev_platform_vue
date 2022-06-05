@@ -18,12 +18,12 @@
     </div>
   </div>
   <div class="menu_box">
-    <el-menu  :router="true"
+    <el-menu
               active-text-color="#ffd04b"
-              default-active="1"
+              default-active="0"
               text-color="white"
               style="background: none">
-      <el-menu-item :index="menu.path" v-for="menu in menus">
+      <el-menu-item :index="index.toLocaleString()" v-for="(menu, index) in menus" @click="clickMenu(menu.pathname)">
         <span :class="menu.icon"></span>
         <span>{{menu.name}}</span>
       </el-menu-item>
@@ -49,6 +49,10 @@ export default {
   },
   methods: {
     ...mapMutations(['updateStates', 'updateState']),
+
+    clickMenu(pathname) {
+      this.$router.push({name: pathname})
+    },
 
     handleCommand(cmd) {
       if (cmd === 'selectProject') {

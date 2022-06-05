@@ -45,7 +45,7 @@ http.interceptors.response.use(function (response) {
         return response
     }
     else if (response.status === 500) {
-         store.dispatch('messageError', response.data).catch((e) => {console.log(e)})
+        store.dispatch('messageError', response.data).catch((e) => {console.log(e)})
         return response
     }
     else {
