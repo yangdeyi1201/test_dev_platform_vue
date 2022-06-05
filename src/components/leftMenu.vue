@@ -23,7 +23,7 @@
               default-active="0"
               text-color="white"
               style="background: none">
-      <el-menu-item :index="index.toLocaleString()" v-for="(menu, index) in menus" @click="clickMenu(menu.pathname)">
+      <el-menu-item :index="index.toLocaleString()" v-for="(menu, index) in menus" @click="clickMenu(menu)">
         <span :class="menu.icon"></span>
         <span>{{menu.name}}</span>
       </el-menu-item>
@@ -48,10 +48,11 @@ export default {
     }
   },
   methods: {
-    ...mapMutations(['updateStates', 'updateState']),
+    ...mapMutations(['updateStates', 'updateState', 'appendTag']),
 
-    clickMenu(pathname) {
-      this.$router.push({name: pathname})
+    clickMenu(menu) {
+      this.appendTag(menu.name)
+      this.$router.push({name: menu.pathname})
     },
 
     handleCommand(cmd) {
@@ -60,6 +61,10 @@ export default {
         this.updateState({
           'name': 'projectInfo',
           'value': null
+        })
+        this.updateState({
+          'name': 'tags',
+          'value': []
         })
       }
       else if (cmd === 'loginOut') {
@@ -70,6 +75,10 @@ export default {
           {'name': 'username', 'value': null}
         ]
         this.updateStates(states)
+        this.updateState({
+          'name': 'tags',
+          'value': []
+        })
       }
     }
   }
