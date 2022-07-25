@@ -51,7 +51,6 @@ export default {
     ...mapMutations(['updateStates', 'updateState', 'appendTag']),
 
     clickMenu(menu) {
-      this.appendTag(menu.name)
       this.$router.push({name: menu.pathname})
     },
 

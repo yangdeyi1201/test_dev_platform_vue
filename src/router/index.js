@@ -41,27 +41,42 @@ const routes = [
     path: '/home',
     name: 'home',
     redirect: '/home/project',
+    meta: {
+      'name': '首页'
+    },
     component: () => {return import('../views/home.vue')},
     children: [
       {
         path: '/home/project',
         name:'project',
-        component: () => {return import('../views/project.vue')}
+        component: () => {return import('../views/project.vue')},
+        meta: {
+          'name': '项目管理'
+        }
       },
       {
         path: '/home/interface',
         name: 'interface',
-        component: () => {return import('../views/interface.vue')}
+        component: () => {return import('../views/interface.vue')},
+        meta: {
+          'name': '接口管理'
+        }
       },
       {
         path: '/home/case',
         name: 'case',
-        component: () => {return import('../views/case.vue')}
+        component: () => {return import('../views/case.vue')},
+        meta: {
+          'name': '用例管理'
+        }
       },
       {
         path: '/home/env',
         name: 'env',
-        component: () => {return import('../views/env.vue')}
+        component: () => {return import('../views/env.vue')},
+        meta: {
+          'name': '环境管理'
+        }
       }
     ]
   },
@@ -88,6 +103,11 @@ const names = getAllNames(filter_routes)
 // 设置路由全局前置拦截器: 每个路由访问前执行
 router.beforeEach((to, from, next) => {
   const token = store.state.isAuthorization
+
+  if (to.meta['name']) {
+    // 如为点击项目首页导航菜单进行路由跳转->添加导航菜单名至标签列表(如标签列表中未存在)
+    store.commit('appendTag', to.meta['name'])
+  }
 
   if (to.name === 'login') {
   //  如访问登录页, 直接下一步
